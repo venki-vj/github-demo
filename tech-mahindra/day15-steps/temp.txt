@@ -1,0 +1,82 @@
+import { Component } from "react";
+
+class FormApp extends Component{
+    state = {
+        username : "",
+        userage : 0,
+        useremail : "",
+        nameerror : "",
+        ageerror : "",
+        emailerror : ""
+    }
+   /*  
+    usernameHandler = (evt)=>{
+        this.setState({
+            username : evt.target.value
+        })
+    };
+    userageHandler = (evt)=>{
+        this.setState({
+            userage : evt.target.value
+        })
+    };
+    useremailHandler = (evt)=>{
+        this.setState({
+            useremail : evt.target.value
+        })
+    }; */
+    changeHandler = (evt)=>{
+        this.setState({
+            [evt.target.id] : evt.target.value
+        })
+    };
+    formHandler = (evt)=>{
+        evt.preventDefault();
+        if(this.state.userage < 18){
+            this.setState({
+                ageerror : "you are too young to join us"
+            })
+        }else if(this.state.userage > 80){
+            this.setState({
+                ageerror : "you are too old to join us"
+            })
+        }else{
+            evt.target.submit();
+            this.setState({
+                ageerror : ""
+            })
+        }
+    }
+    render(){
+        return <div>
+                <h1>User Registeration Form</h1>
+                <form onSubmit={ this.formHandler } method="get" action="#">
+                    <div className="mb-3">
+                        <label htmlFor="username" className="form-label">User Name</label>
+                        <input name="username" onChange={ this.changeHandler } type="text" value={ this.state.username } className="form-control" id="username"/>
+                        <div className="form-text">{ this.state.nameerror }</div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="userage" className="form-label">User Age</label>
+                        <input name="userage" onChange={ this.changeHandler } type="number" value={ this.state.userage } className="form-control" id="userage"/>
+                        <div className="form-text">{ this.state.ageerror }</div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="useremail" className="form-label">User eMail</label>
+                        <input name="useremail" onChange={ this.changeHandler } type="text" value={ this.state.useremail } className="form-control" id="useremail"/>
+                        <div className="form-text">{ this.state.emailerror }</div>
+                    </div>
+                    <button type="submit" className="btn btn-primary">Register</button>
+                </form>
+                <hr />
+                <ul>
+                    <li>User Name : { this.state.username }</li>
+                    <li>User Age : { this.state.userage }</li>
+                    <li>User eMail : { this.state.useremail }</li>
+                </ul>
+               </div>
+    }
+}
+export default FormApp;
+
+

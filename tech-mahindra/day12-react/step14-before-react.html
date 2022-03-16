@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1:lang(fr){
+            background-color: tomato;
+            color: papayawhip;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" ></script>  
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script>
+        /* addEventListener("load", init);
+        function init(){
+          
+          // virtual
+            // var elm = document.createElement("h1");
+            //     elm.setAttribute("lang","fr");
+            //     elm.innerText = "Welcome to your life";
+            // add to real
+            // document.getElementById("root").appendChild(elm); 
+          
+            // var elm = React.createElement("h1",{ lang : "fr" }, "Welcome to your life, there's no turning back");
+            // ReactDOM.render(elm, document.getElementById("root")); 
+          
+            
+            // var elm = document.createElement("ul");
+            // var list1 = document.createElement("li");
+            //     list1.innerText = "list item 1";
+            // var list2 = document.createElement("li");
+            //     list2.innerText = "list item 2";
+            // var list3 = document.createElement("li");
+            //     list3.innerText = "list item 3";
+            // var list4 = document.createElement("li");
+            //     list4.innerText = "list item 4";
+            // elm.appendChild(list1)
+            //     .appendChild(list2)
+            //     .appendChild(list3)
+            //     .appendChild(list4);
+            // document.getElementById("root").appendChild(elm);  
+ 
+            // var elm = React.createElement("ul", null,[
+            // React.createElement("li", { key : "1" }, "List Item 1"),
+            // React.createElement("li", { key : "2" }, "List Item 2"),
+            // React.createElement("li", { key : "3" }, "List Item 3"),
+            // React.createElement("li", { key : "4" }, "List Item 4"),
+            // React.createElement("li", { key : "5" }, "List Item 5")]
+            // );
+            // ReactDOM.render(elm, document.getElementById("root")); 
+          
+
+       } */
+    </script>
+
+    <script type="text/babel">
+
+        var Elm = function(){
+            let arr = ['List Item 1', 'List Item 2', 'List Item 3', 'List Item 4'];
+            return <ul>{ arr.map(function(val, idx){
+                return <li key={idx}>{ val }</li>
+            }) }</ul>
+        };
+
+        ReactDOM.render(<Elm/>, document.getElementById("root"))
+    </script>
+
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>

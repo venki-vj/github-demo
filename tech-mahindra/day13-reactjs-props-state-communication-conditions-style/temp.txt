@@ -1,0 +1,155 @@
+import { Component } from "react";
+import FirstComp from "./components/first.component";
+class MainApp extends Component{
+    state = {
+        power : 0,
+        showTerms : false
+    }
+    increasePower = ()=>{
+        this.setState({
+            power : this.state.power + 1
+        })
+    }
+    decreasePower = ()=>{
+        this.setState({
+            power : this.state.power - 1
+        })
+    }
+    render(){
+       if(this.state.showTerms){
+        return <div>
+                    <h1>Welcome to TechM Training</h1>
+                    <h2>Power :  | { this.state.power }</h2>
+                    <button onClick={ this.increasePower }>Increase Power</button>
+                    <button onClick={ this.decreasePower }>Decrease Power</button>
+                    <br />
+                    <br />
+                    <label htmlFor="cb"> Show Terms & Conditions </label>
+                    <input onChange={ ()=> this.setState({ showTerms : !this.state.showTerms}) } id="cb" type="checkbox" />    
+                    <hr />
+                    <FirstComp/>
+                    <div>
+                        <h5>TERMS AND CONDITONS</h5>
+                        <hr/>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem facilis amet molestiae ipsa tempore harum. Odit officia, nisi neque rem consectetur corporis, aperiam quisquam animi illum praesentium sunt obcaecati incidunt!
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur aliquid libero aspernatur tempora molestiae sequi deserunt enim sed modi maiores. Expedita aliquid praesentium, deleniti illum nihil enim corporis vero. Ea!
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis ipsum voluptas, veniam magni illum blanditiis impedit possimus laboriosam nobis doloremque, sed distinctio fuga animi eaque reprehenderit libero officia suscipit repellat.
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores fuga tempora recusandae, provident eum voluptatem architecto? Ab, officia inventore, alias sint incidunt dolores odit, quo sunt quaerat quasi aperiam veritatis!
+                        </p>
+                    </div>
+            </div>
+       }else{
+        return <div>
+                    <h1>Welcome to TechM Training</h1>
+                    <h2>Power :  | { this.state.power }</h2>
+                    <button onClick={ this.increasePower }>Increase Power</button>
+                    <button onClick={ this.decreasePower }>Decrease Power</button>
+                    <br />
+                    <br />
+                    <label htmlFor="cb"> Show Terms & Conditions </label>
+                    <input onChange={ ()=> this.setState({ showTerms : !this.state.showTerms}) } id="cb" type="checkbox" />    
+                    <hr />
+                    <FirstComp/>
+            </div>
+       }
+}}
+export default MainApp;
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import { Component } from "react";
+import FirstComp from "./components/first.component";
+class MainApp extends Component{
+    state = {
+        power : 0,
+        showTerms : false
+    }
+    increasePower = ()=>{
+        this.setState({
+            power : this.state.power + 1
+        })
+    }
+    decreasePower = ()=>{
+        this.setState({
+            power : this.state.power - 1
+        })
+    }
+    render(){
+        return <div>
+                    <h1>Welcome to TechM Training</h1>
+                    <h2>Power :  | { this.state.power }</h2>
+                    <button onClick={ this.increasePower }>Increase Power</button>
+                    <button onClick={ this.decreasePower }>Decrease Power</button>
+                    <br />
+                    <br />
+                    <label htmlFor="cb"> Show Terms & Conditions </label>
+                    <input onChange={ ()=> this.setState({ showTerms : !this.state.showTerms}) } id="cb" type="checkbox" />    
+                    <hr />
+                    <FirstComp/>
+                    { this.state.showTerms ? 
+                    <div>
+                        <h5>TERMS AND CONDITONS</h5>
+                        <hr/>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem facilis amet molestiae ipsa tempore harum. Odit officia, nisi neque rem consectetur corporis, aperiam quisquam animi illum praesentium sunt obcaecati incidunt!
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur aliquid libero aspernatur tempora molestiae sequi deserunt enim sed modi maiores. Expedita aliquid praesentium, deleniti illum nihil enim corporis vero. Ea!
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis ipsum voluptas, veniam magni illum blanditiis impedit possimus laboriosam nobis doloremque, sed distinctio fuga animi eaque reprehenderit libero officia suscipit repellat.
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores fuga tempora recusandae, provident eum voluptatem architecto? Ab, officia inventore, alias sint incidunt dolores odit, quo sunt quaerat quasi aperiam veritatis!
+                        </p>
+                    </div> 
+                    : 
+                    <span> Terms and conditions are hidden </span>}
+            </div>
+       }
+}
+export default MainApp;
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import { Component } from "react";
+import FirstComp from "./components/first.component";
+class MainApp extends Component{
+    state = {
+        power : 0,
+        showTerms : false
+    }
+    increasePower = ()=>{
+        this.setState({
+            power : this.state.power + 1
+        })
+    }
+    decreasePower = ()=>{
+        this.setState({
+            power : this.state.power - 1
+        })
+    }
+    render(){
+        return <div>
+                    <h1>Welcome to TechM Training</h1>
+                    <h2>Power :  | { this.state.power }</h2>
+                    <button onClick={ this.increasePower }>Increase Power</button>
+                    <button onClick={ this.decreasePower }>Decrease Power</button>
+                    <br />
+                    <br />
+                    <label htmlFor="cb"> Show Terms & Conditions </label>
+                    <input onChange={ ()=> this.setState({ showTerms : !this.state.showTerms}) } id="cb" type="checkbox" />    
+                    <hr />
+                    <FirstComp/>
+                    { this.state.showTerms && 
+                    <div>
+                        <h5>TERMS AND CONDITONS</h5>
+                        <hr/>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem facilis amet molestiae ipsa tempore harum. Odit officia, nisi neque rem consectetur corporis, aperiam quisquam animi illum praesentium sunt obcaecati incidunt!
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur aliquid libero aspernatur tempora molestiae sequi deserunt enim sed modi maiores. Expedita aliquid praesentium, deleniti illum nihil enim corporis vero. Ea!
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis ipsum voluptas, veniam magni illum blanditiis impedit possimus laboriosam nobis doloremque, sed distinctio fuga animi eaque reprehenderit libero officia suscipit repellat.
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores fuga tempora recusandae, provident eum voluptatem architecto? Ab, officia inventore, alias sint incidunt dolores odit, quo sunt quaerat quasi aperiam veritatis!
+                        </p>
+                    </div> 
+                   }
+            </div>
+       }
+}
+export default MainApp;

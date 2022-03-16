@@ -1,0 +1,12 @@
+extends template
+block vars
+    - var title = "Profile Page";
+block body
+    h1 Your Tech M Profile page 
+    h2 your details come here
+    a(href="/logout") Logout 
+    hr
+    h3 First Name : #{ userInfo.firstname }
+    h3 Last Name : #{ userInfo.lastname }
+    h3 eMail : #{ userInfo.email }
+    h3 Hashed Password : #{ userInfo.password }

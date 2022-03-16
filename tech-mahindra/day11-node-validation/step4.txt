@@ -1,0 +1,124 @@
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const session = require("client-sessions");
+
+// App configurations
+app.use(express.urlencoded({ extended : true }));
+app.use(session({
+    cookieName : "techMuser",
+    secret : "cty7u8iol,mnbvfrt6y7890-[;lkmnbgvfrty7u8i9op;l,mnbvcfrty7uiol,mnbvgtyuiop[oiuygtfvmku",
+    duration : 30 * 60 * 1000,
+    activeDuration : 10 * 60 * 1000
+}));
+
+
+// DB Configuration
+let Schema = mongoose.Schema;
+let ObjectId = Schema.ObjectId;
+
+let User = mongoose.model("User", new Schema({
+    id : ObjectId,
+    firstname : String,
+    lastname : String,
+    email : { type : String, required : true, unique : true },
+    password : String
+}));
+
+let clouddb = "";
+let localdb = "mongodb://localhost:27017/techDB";
+
+mongoose.connect(clouddb);
+
+
+// middlewares
+
+// routes
+app.get("/",(req, res)=>{
+    console.log("request to "+req.url);
+    res.render("home.pug");
+})
+app.get("/login",(req, res)=>{
+    console.log("request to "+req.url);
+    res.render("login.pug");
+})
+app.post("/login",(req, res)=>{
+   User.findOne({ email : req.body.userEmail }, function(error, dbUser){
+    if(!dbUser){
+        res.render("login.pug", {
+            error : "Ther is no user with that credentials"
+        })
+    }else{
+        // if( req.body.userPassword === dbUser.password ){
+        if( bcrypt.compareSync(req.body.userPassword, dbUser.password ) ){
+            req.techMuser.user = dbUser;
+            res.redirect("/profile");
+        }else{
+            res.render("login.pug", {
+                error : "Invalid emailid or password"
+            })
+        }
+    }
+   });
+})
+app.get("/register",(req, res)=>{
+    console.log("request to "+req.url);
+    res.render("register.pug");
+})
+app.post("/register",(req, res)=>{
+    
+   let hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+   console.log(req.body.password, hash);
+   let user = new User({
+    firstname : req.body.firstname,
+    lastname : req.body.lastname,
+    email : req.body.email,
+    password : hash
+   });
+
+   user.save(function(error){
+       if(error){
+           if( error.code === 11000 ){
+            console.log("eMail id exists ", error)
+        }else{
+            console.log("Error ", error)
+           }
+       }
+       else{
+           res.redirect("/profile");
+       }
+   })
+})
+app.get("/profile",(req, res)=>{
+   /*  console.log("request to "+req.url);
+    res.render("profile.pug"); */
+    console.log(req.techMuser);
+    if(req.techMuser && req.techMuser.user){
+        User.findOne({ email : req.techMuser.user.email }, function(error, user){
+            if(!user){
+                req.techMuser.reset();
+                res.redirect("/login");
+            }else{
+                res.render("profile.pug",{
+                    userInfo : user
+                })
+            }
+        })
+    }
+})
+app.get("/logout",(req, res)=>{
+    console.log("request to "+req.url);
+    req.techMuser.reset();
+    res.redirect("/");
+});
+
+// server settings
+app.listen(5050,"localhost",function(error){
+    if(error){
+        console.log("Error ", error);
+    }else{
+        console.log("Server is now live on localhost:5050");
+    }
+});
+

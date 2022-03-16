@@ -1,0 +1,79 @@
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+
+// App configurations
+app.use(express.urlencoded({ extended : true }));
+
+// DB Configuration
+let Schema = mongoose.Schema;
+let ObjectId = Schema.ObjectId;
+
+let User = mongoose.model("User", new Schema({
+    id : ObjectId,
+    firstname : String,
+    lastname : String,
+    email : { type : String, required : true, unique : true },
+    password : String
+}));
+
+let clouddb = "";
+let localdb = "";
+
+mongoose.connect(clouddb);
+
+
+// middlewares
+
+// routes
+app.get("/",(req, res)=>{
+    console.log("request to "+req.url);
+    res.render("home.pug");
+})
+app.get("/login",(req, res)=>{
+    console.log("request to "+req.url);
+    res.render("login.pug");
+})
+app.get("/register",(req, res)=>{
+    console.log("request to "+req.url);
+    res.render("register.pug");
+})
+app.post("/register",(req, res)=>{
+   let user = new User({
+    firstname : req.body.firstname,
+    lastname : req.body.lastname,
+    email : req.body.email,
+    password : req.body.password
+   });
+
+   user.save(function(error){
+       if(error){
+           if( error.code === 11000 ){
+            console.log("eMail id exists ", error)
+        }else{
+            console.log("Error ", error)
+           }
+       }
+       else{
+           res.redirect("/profile");
+       }
+   })
+})
+app.get("/profile",(req, res)=>{
+    console.log("request to "+req.url);
+    res.render("profile.pug");
+})
+app.get("/logout",(req, res)=>{
+    console.log("request to "+req.url);
+    res.redirect("/");
+});
+
+// server settings
+app.listen(5050,"localhost",function(error){
+    if(error){
+        console.log("Error ", error);
+    }else{
+        console.log("Server is now live on localhost:5050");
+    }
+});
+

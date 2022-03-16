@@ -1,0 +1,16 @@
+import React from "react";
+import ReactDOM from "react-dom";
+
+// let Comp = ()=> <h1>Step 2 Of React Ex</h1>;
+
+let ChildComp = (props)=><li>List Item { props.children }</li>;
+
+let Comp = ()=> <ul> 
+                    <ChildComp>1</ChildComp>
+                    <ChildComp>2</ChildComp> 
+                    <ChildComp>3</ChildComp> 
+                    <ChildComp>4</ChildComp> 
+                    <ChildComp>5</ChildComp> 
+                </ul>
+
+ReactDOM.render(<Comp/>, document.getElementById("root"));

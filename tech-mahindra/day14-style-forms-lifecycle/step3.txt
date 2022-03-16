@@ -1,0 +1,114 @@
+import { Component } from "react";
+import ChildComp from "./components/child.component";
+
+class MainApp extends Component{
+    state = {
+        power : 1
+    }
+    constructor(){
+        super();
+        console.log("MainApp's constructor was called");
+    }
+    componentDidMount(){
+        console.log("MainApp's componentDidMount was called");
+    }
+    increasePower = ()=>{
+        this.setState({
+            power : this.state.power + 1
+        })
+    }
+    decreasePower = ()=>{
+        this.setState({
+            power : this.state.power - 1
+        })
+    }
+    render(){
+        console.log("MainApp's render was called");
+        return <div className="container">
+                    <h1>Welcome to TechM Training : Power { this.state.power }</h1>
+                    <button onClick={ this.increasePower }>Increase Power</button>
+                    <button onClick={ this.decreasePower }>Decrease Power</button>
+                    <hr />
+                    { this.state.power < 15 ? <ChildComp childPower={this.state.power}/> : <h2>Component unmounted</h2>}
+              </div>
+       }
+}
+export default MainApp;
+
+
+
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+import { Component } from "react";
+
+class ChildComp extends Component{
+    state = {
+        power : 0
+    }
+    componentSteps = [];
+    constructor(){
+        super();
+        // can be used to make intial assignments to component's properties
+        console.log("ChildComp's constructor was called");
+    }
+    static getDerivedStateFromProps(currentprops, currentstate){
+        // can be used to make assign state value from props
+        console.log("ChildComp's getDerivedStateFromProps was called");
+        console.log(currentprops, currentstate);
+        return {
+            power : currentprops.childPower
+        };
+    }
+    componentDidMount(){
+        // can be used to make api requests
+        console.log("ChildComp's componentDidMount was called");
+    }
+    shouldComponentUpdate(currentProps, currentState){
+        // can be used to logically render the component. 
+        // if returned true component will render, if returned false the component wont be rendered.
+        console.log("ChildComp's shouldComponentUpdate was called");
+        console.log(arguments[0], arguments[1]);
+        if(currentProps.childPower <= 10){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    getSnapshotBeforeUpdate(currentProps, currentState){
+         // can be used to access props, state and custom object to create un-do re-do;
+         console.log("ChildComp's getSnapshotBeforeUpdate was called");
+         return {
+             cProps : currentProps,
+             cState : currentState
+         }
+    }
+    componentDidUpdate(currentProps, currentState, custObject){
+        // can be used to access create an object with currentprops currentState and object returned getSnapshotBeforeUpdate function;
+        console.log("ChildComp's componentDidUpdate was called");
+        this.componentSteps.push(custObject);
+        console.log(this.componentSteps);
+    }
+    componentWillUnmount(){
+        // can be used to stop / unsubscribe api requests
+        console.log("ChildComp's componentWillUnmount was called");
+    }
+    render(){
+        // has to return a jsx element to be rendered by application
+        console.log("ChildComp's render was called");
+        return  <div>
+                    <h2>Child Component</h2>
+                    <hr />
+                    <h3>Child's State Power : { this.state.power }</h3>
+                    <h3>Child's Prop Power : { this.props.childPower }</h3>
+                </div>
+    }
+}
+
+export default ChildComp;
